@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Faculty | Darul Arqam College</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --dhiu-blue: #003366;
+            --dhiu-gold: #b38e44;
+            --light-bg: #f8fafc;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Times New Roman', serif; background: var(--light-bg); color: #333; overflow-x: hidden; }
+
+        /* --- Navigation --- */
+        nav { background: var(--white); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .back-btn { text-decoration: none; color: var(--dhiu-blue); font-weight: bold; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .back-btn:hover { color: var(--dhiu-gold); transform: translateX(-5px); }
+
+        /* --- Large Animated Header --- */
+        .page-header { 
+            background: linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 51, 102, 0.85)), url('bg1.png');
+            background-size: cover;
+            background-position: center;
+            color: white; 
+            padding: 100px 20px; 
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
+        .page-header h1 { font-size: 3.5rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .page-header p { color: var(--dhiu-gold); font-size: 1.2rem; font-weight: bold; letter-spacing: 3px; }
+
+        /* --- Faculty Grid --- */
+        .faculty-container { padding: 80px 10%; max-width: 1400px; margin: 0 auto; }
+        
+        /* Larger grid for a "Big" feel */
+        .faculty-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+            gap: 30px; 
+        }
+
+        .faculty-card { 
+            background: var(--white); 
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 4px solid transparent;
+        }
+
+        .faculty-card:hover { 
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--dhiu-gold);
+        }
+
+        /* Image Wrapper with Zoom */
+        .square-img-wrapper { 
+            width: 100%; 
+            aspect-ratio: 1 / 1; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .square-img-wrapper img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.6s ease;
+        }
+        .faculty-card:hover .square-img-wrapper img { transform: scale(1.1); }
+
+        /* Animated Overlay */
+        .faculty-overlay { 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(179, 142, 68, 0.9); 
+            display: flex; justify-content: center; align-items: center; 
+            gap: 15px; opacity: 0; transition: 0.4s ease;
+            transform: translateY(100%);
+        }
+        .faculty-card:hover .faculty-overlay { opacity: 1; transform: translateY(0); }
+        .faculty-overlay a { color: white; font-size: 1.5rem; transition: 0.3s; }
+        .faculty-overlay a:hover { transform: scale(1.2); color: var(--dhiu-blue); }
+
+        /* Text Section */
+        .faculty-info { 
+            padding: 20px; 
+            text-align: left; 
+            border-left: 4px solid var(--dhiu-gold); 
+        }
+        .faculty-info h4 { 
+            color: var(--dhiu-blue); 
+            font-size: 1.1rem; 
+            margin: 0; 
+            text-transform: uppercase; 
+            font-weight: 800;
+        }
+        .faculty-info p { 
+            color: #64748b; 
+            font-size: 0.9rem; 
+            margin-top: 6px; 
+            font-weight: 600; 
+            font-style: italic;
+        }
+
+        footer { background: #001a33; color: #aaa; text-align: center; padding: 40px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> RETURN TO HOME</a>
+        <img src="logo.png" alt="Logo" style="height: 50px;">
+    </nav>
+
+    <div class="page-header">
+        <h1 data-aos="fade-down">Meet Our Scholars</h1>
+        <p data-aos="fade-up" data-aos-delay="200">DEDICATED FACULTY OF DARUL ARQAM</p>
+    </div>
+
+    <div class="faculty-container">
+        <div class="faculty-grid">
+            
+            <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="100">
+                <div class="square-img-wrapper">
+                    <img src="ustad1.jpg" alt="Ustad">
+                    <div class="faculty-overlay">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="faculty-info">
+                    <h4>Usthad Name</h4>
+                    <p>Department of Fiqh</p>
+                </div>
+            </div>
+
+            <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="200">
+                <div class="square-img-wrapper">
+                    <img src="ustad2.jpg" alt="Ustad">
+                    <div class="faculty-overlay">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="faculty-info">
+                    <h4>Usthad Name</h4>
+                    <p>Arabic Linguistics</p>
+                </div>
+            </div>
+
+            <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="300">
+                <div class="square-img-wrapper">
+                    <img src="ustad3.jpg" alt="Ustad">
+                    <div class="faculty-overlay">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="faculty-info">
+                    <h4>Usthad Name</h4>
+                    <p>Hadith & Tafsir</p>
+                </div>
+            </div>
+
+            <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="400">
+                <div class="square-img-wrapper">
+                    <img src="ustad4.jpg" alt="Ustad">
+                    <div class="faculty-overlay">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="faculty-info">
+                    <h4>Usthad Name</h4>
+                    <p>Islamic History</p>
+                </div>
+            </div>
+
+            </div>
+    </div>
+
+    <footer>
+        <p style="color: var(--dhiu-gold); font-weight: bold; margin-bottom: 8px;">DARUL ARQAM SHAREE'A & ART'S COLLEGE</p>
+        <p>© 2026 Perinthalmanna, Kerala. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Refresh AOS to ensure animations trigger correctly on scroll
+        AOS.init({ 
+            duration: 1000, 
+            once: false, // Set to false so it animates every time you scroll up/down
+            mirror: true 
+        });
+    </script>
+</body>
+</html>

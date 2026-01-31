@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Darul Arqam</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; padding: 20px; color: #333; }
+        .admin-box { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h1 { color: #003366; text-align: center; border-bottom: 2px solid #003366; padding-bottom: 10px; }
+        .section { background: #fff; padding: 20px; border-radius: 10px; border: 1px solid #eee; margin-top: 20px; }
+        h2 { font-size: 1.2rem; color: #444; margin-bottom: 15px; }
+        input[type="text"], input[type="file"] { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { background: #003366; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
+        button:hover { background: #002244; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; background: #fafafa; margin-bottom: 5px; border-radius: 5px; }
+        .delete-btn { background: #dc3545; width: auto; padding: 5px 15px; font-size: 0.8rem; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #003366; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="admin-box">
+    <h1>College Management Panel</h1>
+
+    <div class="section">
+        <h2>📢 Update News Ticker</h2>
+        <form action="/admin/add-notif" method="POST">
+            <input type="text" name="text" placeholder="Type new announcement here..." required>
+            <button type="submit">Add to Ticker</button>
+        </form>
+
+        <div style="margin-top: 20px;">
+            <h3>Active Announcements:</h3>
+            <% notifs.forEach(item => { %>
+                <div class="list-item">
+                    <span><%= item.text %></span>
+                    <form action="/admin/delete/notif/<%= item._id %>" method="POST" style="margin:0;">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🖼️ Upload Photo to Union Gallery</h2>
+        <form action="/admin/upload" method="POST" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="Event Name (e.g. Arts Fest 2026)" required>
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Upload Photo</button>
+        </form>
+
+        <div style="margin-top: 20px;">
+            <h3>Gallery Management:</h3>
+            <% photos.forEach(photo => { %>
+                <div class="list-item">
+                    <span><strong><%= photo.title %></strong></span>
+                    <form action="/admin/delete/photo/<%= photo._id %>" method="POST" style="margin:0;">
+                        <button type="submit" class="delete-btn">Remove</button>
+                    </form>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <a href="/" class="back-link">← Go back to Website</a>
+</div>
+
+</body>
+</html>

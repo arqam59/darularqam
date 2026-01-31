@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alashbal Union Gallery | Darul Arqam</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --blue: #003366; 
+            --gold: #b38e44; 
+            --bg: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Times New Roman', serif; background: var(--bg); color: #333; }
+
+        /* --- Navigation --- */
+        nav { 
+            background: #fff; padding: 15px 8%; display: flex; 
+            justify-content: space-between; align-items: center; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; 
+        }
+        .back-btn { text-decoration: none; color: var(--blue); font-weight: bold; display: flex; align-items: center; gap: 8px; }
+
+        /* --- Header --- */
+        .gallery-header { 
+            background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), url('bg2.png'); 
+            color: white; padding: 80px 20px; text-align: center; background-size: cover; background-position: center;
+        }
+
+        /* --- Masonry Grid (Full Size Fix) --- */
+        .gallery-container {
+            padding: 40px 8%;
+            columns: 3 300px;
+            column-gap: 20px;
+        }
+        .gallery-container {
+    padding: 20px 5%;
+    /* 3 columns on PC, 2 on Tablet, 1 on Mobile */
+    columns: 3 300px; 
+    column-gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .gallery-container {
+        columns: 2; /* Side-by-side on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-container {
+        columns: 1; /* Single stack on phones */
+    }
+}
+
+        .gallery-item {
+            width: 100%; margin-bottom: 20px; break-inside: avoid; 
+            position: relative; border-radius: 8px; overflow: hidden;
+            background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer; border: 1px solid #eee;
+        }
+
+        .gallery-item img {
+            width: 100%; height: auto; /* Ensures full size visibility */
+            display: block; transition: 0.5s ease;
+        }
+
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        /* --- Lightbox Styles --- */
+        .lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; padding: 20px;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox-img {
+            max-width: 90%; max-height: 80vh;
+            border: 3px solid white; border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .close-lightbox {
+            position: absolute; top: 30px; right: 40px;
+            color: white; font-size: 40px; cursor: pointer;
+        }
+
+        footer { background: #001a33; color: white; text-align: center; padding: 40px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK TO HOME</a>
+        <img src="logo.png" alt="Logo" style="height: 45px;">
+    </nav>
+
+    <div class="gallery-header">
+        <h1>Alashbal Union Gallery</h1>
+        <p>Capturing the Spirit of Darul Arqam</p>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
+            <img src="union2.jpg" alt="Event 1">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
+            <img src="fest2.jpg" alt="Event 2">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
+            <img src=".jpg" alt="Event 3">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
+            <img src="fest4.jpg" alt="Event 4">
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img src="" class="lightbox-img" id="lightbox-img">
+    </div>
+
+    <footer>
+        <p>© 2026 Alashbal Student Union | Darul Arqam College</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Lightbox Functions
+        function openLightbox(element) {
+            const imgSrc = element.querySelector('img').src;
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop scrolling when open
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto'; // Enable scrolling again
+        }
+    </script>
+</body>
+</html>
