@@ -75,10 +75,10 @@
     </div>
 
     <div class="gallery-container">
-        <% if(images && images.length > 0) { %>
-            <% images.forEach(img => { %>
+        <% if(photos && photos.length > 0) { %>
+            <% photos.forEach(photo => { %>
                 <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
-                    <img src="/uploads/gallery/<%= img %>" alt="Gallery Image">
+                    <img src="<%= photo.url %>" alt="<%= photo.title %>">
                 </div>
             <% }) %>
         <% } else { %>
