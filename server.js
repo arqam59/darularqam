@@ -9,7 +9,8 @@ const ejs = require('ejs');
 
 const app = express();
 
-// --- 1. VIEW ENGINE SETUP (Keep .html extension) ---
+// --- 1. VIEW ENGINE SETUP ---
+// We use EJS but keep the .html extension for your files
 app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
@@ -42,7 +43,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'darul_arqam_portal',
-        allowed_formats: ['jpg', 'png', 'jpeg']
+        allowed_formats: ['jpg', 'png', 'jpeg', 'webp']
     }
 });
 const upload = multer({ storage: storage });
@@ -50,6 +51,7 @@ const upload = multer({ storage: storage });
 // --- 5. MIDDLEWARE ---
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // --- 6. ROUTES ---
 
@@ -59,53 +61,73 @@ app.get('/', async (req, res) => {
         const notifs = await Notification.find().sort({ _id: -1 });
         res.render('index.html', { notifs });
     } catch (err) {
-        res.send("Error loading home page");
+        res.status(500).send("Error loading home page");
     }
 });
 
-// Admin Page (To add/delete news and photos)
+// Admin Page (Manage notifications and gallery uploads)
 app.get('/admin', async (req, res) => {
-    const notifs = await Notification.find().sort({ _id: -1 });
-    const photos = await Photo.find().sort({ createdAt: -1 });
-    res.render('admin.html', { notifs, photos });
+    try {
+        const notifs = await Notification.find().sort({ _id: -1 });
+        const photos = await Photo.find().sort({ createdAt: -1 });
+        res.render('admin.html', { notifs, photos });
+    } catch (err) {
+        res.status(500).send("Error loading Admin panel");
+    }
 });
 
-// Faculty Page
-app.get('/faculty', (req, res) => {
-    res.render('faculty.html');
-});
-
-// Union Gallery Page
+// Union Gallery Page (Public View)
 app.get('/union-gallery', async (req, res) => {
-    const photos = await Photo.find().sort({ createdAt: -1 });
-    res.render('union-gallery.html', { photos });
+    try {
+        // Fetch all photos stored in MongoDB
+        const photos = await Photo.find().sort({ createdAt: -1 });
+        res.render('union-gallery.html', { photos });
+    } catch (err) {
+        res.status(500).send("Error loading gallery");
+    }
 });
 
-// Admission Portal
-app.get('/admission-portal', (req, res) => {
-    res.render('admission-portal.html');
-});
+// Other Static Pages
+app.get('/faculty', (req, res) => res.render('faculty.html'));
+app.get('/admission-portal', (req, res) => res.render('admission-portal.html'));
 
 // --- ADMIN ACTIONS ---
+
+// Add News/Notification
 app.post('/admin/add-notif', async (req, res) => {
-    await Notification.create({ text: req.body.text });
+    if (req.body.text) {
+        await Notification.create({ text: req.body.text });
+    }
     res.redirect('/admin');
 });
 
+// Upload Photo to Cloudinary and save link to MongoDB
 app.post('/admin/upload', upload.single('image'), async (req, res) => {
-    if (req.file) {
-        await Photo.create({ title: req.body.title, url: req.file.path });
+    try {
+        if (req.file) {
+            await Photo.create({ 
+                title: req.body.title || 'Gallery Image', 
+                url: req.file.path // This is the Cloudinary URL
+            });
+        }
+        res.redirect('/admin');
+    } catch (err) {
+        res.status(500).send("Upload failed: " + err.message);
     }
-    res.redirect('/admin');
 });
 
+// Delete Notification or Photo
 app.post('/admin/delete/:type/:id', async (req, res) => {
-    if (req.params.type === 'notif') {
-        await Notification.findByIdAndDelete(req.params.id);
-    } else {
-        await Photo.findByIdAndDelete(req.params.id);
+    try {
+        if (req.params.type === 'notif') {
+            await Notification.findByIdAndDelete(req.params.id);
+        } else if (req.params.type === 'photo') {
+            await Photo.findByIdAndDelete(req.params.id);
+        }
+        res.redirect('/admin');
+    } catch (err) {
+        res.status(500).send("Delete failed");
     }
-    res.redirect('/admin');
 });
 
 // --- START SERVER ---
