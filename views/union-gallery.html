@@ -24,7 +24,8 @@
 
         /* --- Header --- */
         .gallery-header { 
-            background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), url('/bg2.png'); 
+            /* Fixed: Uses dynamic hero image if available, else falls back to bg2.png */
+            background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), url('<%= typeof hero !== "undefined" ? hero : "/bg2.png" %>'); 
             color: white; padding: 80px 20px; text-align: center; background-size: cover; background-position: center;
         }
         .gallery-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
@@ -82,7 +83,7 @@
                 </div>
             <% }) %>
         <% } else { %>
-            <div style="text-align: center; grid-column: 1/-1; padding: 50px; color: #666;">
+            <div style="text-align: center; padding: 50px; color: #666; width: 100%;">
                 <i class="fas fa-images fa-3x" style="margin-bottom: 15px; opacity: 0.3;"></i>
                 <p>No photos available in the gallery yet.</p>
             </div>
@@ -115,7 +116,9 @@
             document.body.style.overflow = 'auto';
         }
 
-        document.addEventListener('keydown', (e) => { if (e.key === "Escape") closeLightbox(); });
+        document.addEventListener('keydown', (e) => { 
+            if (e.key === "Escape") closeLightbox(); 
+        });
     </script>
 </body>
 </html>
