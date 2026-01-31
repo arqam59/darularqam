@@ -21,12 +21,12 @@
 
         /* --- Navigation --- */
         nav { background: var(--white); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .back-btn { text-decoration: none; color: var(--dhiu-blue); font-weight: bold; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .back-btn { text-decoration: none; color: var(--dhiu-blue); font-weight: bold; display: flex; align-items: center; gap: 10px; transition: 0.3s; font-size: 0.9rem; }
         .back-btn:hover { color: var(--dhiu-gold); transform: translateX(-5px); }
 
         /* --- Large Animated Header --- */
         .page-header { 
-            background: linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 51, 102, 0.85)), url('bg1.png');
+            background: linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 51, 102, 0.85)), url('/bg1.png');
             background-size: cover;
             background-position: center;
             color: white; 
@@ -40,7 +40,6 @@
         /* --- Faculty Grid --- */
         .faculty-container { padding: 80px 10%; max-width: 1400px; margin: 0 auto; }
         
-        /* Larger grid for a "Big" feel */
         .faculty-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
@@ -112,13 +111,18 @@
         }
 
         footer { background: #001a33; color: #aaa; text-align: center; padding: 40px; margin-top: 50px; }
+        
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2.2rem; }
+            .faculty-container { padding: 40px 5%; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index" class="back-btn"><i class="fas fa-arrow-left"></i> RETURN TO HOME</a>
-        <img src="logo.png" alt="Logo" style="height: 50px;">
+        <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> RETURN TO HOME</a>
+        <img src="/logo.png" alt="Logo" style="height: 50px;">
     </nav>
 
     <div class="page-header">
@@ -131,7 +135,7 @@
             
             <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="100">
                 <div class="square-img-wrapper">
-                    <img src="ustad1.jpg" alt="Ustad">
+                    <img src="/ustad1.jpg" alt="Ustad">
                     <div class="faculty-overlay">
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                         <a href="#"><i class="fas fa-envelope"></i></a>
@@ -145,7 +149,7 @@
 
             <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="200">
                 <div class="square-img-wrapper">
-                    <img src="ustad2.jpg" alt="Ustad">
+                    <img src="/ustad2.jpg" alt="Ustad">
                     <div class="faculty-overlay">
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                         <a href="#"><i class="fas fa-envelope"></i></a>
@@ -159,7 +163,7 @@
 
             <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="300">
                 <div class="square-img-wrapper">
-                    <img src="ustad3.jpg" alt="Ustad">
+                    <img src="/ustad3.jpg" alt="Ustad">
                     <div class="faculty-overlay">
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                         <a href="#"><i class="fas fa-envelope"></i></a>
@@ -173,7 +177,7 @@
 
             <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="400">
                 <div class="square-img-wrapper">
-                    <img src="ustad4.jpg" alt="Ustad">
+                    <img src="/ustad4.jpg" alt="Ustad">
                     <div class="faculty-overlay">
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                         <a href="#"><i class="fas fa-envelope"></i></a>
@@ -185,7 +189,7 @@
                 </div>
             </div>
 
-            </div>
+        </div>
     </div>
 
     <footer>
@@ -195,13 +199,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Refresh AOS to ensure animations trigger correctly on scroll
         AOS.init({ 
             duration: 1000, 
-            once: false, // Set to false so it animates every time you scroll up/down
+            once: false, 
             mirror: true 
         });
     </script>
 </body>
-
 </html>
