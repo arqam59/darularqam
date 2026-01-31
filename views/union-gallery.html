@@ -9,14 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root { 
-            --blue: #003366; 
-            --gold: #b38e44; 
-            --bg: #f8fafc;
-        }
-
+        :root { --blue: #003366; --gold: #b38e44; --bg: #f8fafc; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Times New Roman', serif; background: var(--bg); color: #333; }
+        body { font-family: 'Times New Roman', serif; background: var(--bg); color: #333; overflow-x: hidden; }
 
         /* --- Navigation --- */
         nav { 
@@ -24,7 +19,7 @@
             justify-content: space-between; align-items: center; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; 
         }
-        .back-btn { text-decoration: none; color: var(--blue); font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: 0.3s; }
+        .back-btn { text-decoration: none; color: var(--blue); font-weight: bold; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
         .back-btn:hover { color: var(--gold); }
 
         /* --- Header --- */
@@ -32,65 +27,39 @@
             background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), url('/bg2.png'); 
             color: white; padding: 80px 20px; text-align: center; background-size: cover; background-position: center;
         }
-        .gallery-header h1 { font-size: 2.5rem; letter-spacing: 1px; margin-bottom: 10px; }
-        .gallery-header p { color: var(--gold); font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; }
+        .gallery-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .gallery-header p { color: var(--gold); font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; }
 
-        /* --- Responsive Masonry Grid --- */
+        /* --- Masonry Grid --- */
         .gallery-container {
             padding: 40px 8%;
-            columns: 3 300px; /* 3 columns on desktop, scales down automatically */
+            columns: 3 300px;
             column-gap: 20px;
         }
 
         .gallery-item {
             width: 100%; margin-bottom: 20px; break-inside: avoid; 
-            position: relative; border-radius: 8px; overflow: hidden;
+            border-radius: 8px; overflow: hidden;
             background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer; border: 1px solid #eee;
-            transition: 0.3s;
+            cursor: pointer; transition: transform 0.3s ease;
         }
 
-        .gallery-item img {
-            width: 100%; height: auto; 
-            display: block; transition: 0.5s ease;
-        }
-
-        .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .gallery-item img { width: 100%; height: auto; display: block; transition: 0.5s ease; }
+        .gallery-item:hover { transform: translateY(-5px); }
         .gallery-item:hover img { transform: scale(1.05); }
 
-        /* --- Lightbox Styles --- */
+        /* --- Lightbox --- */
         .lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             display: none; justify-content: center; align-items: center;
             z-index: 2000; padding: 20px;
         }
-
         .lightbox.active { display: flex; }
+        .lightbox-img { max-width: 90%; max-height: 85vh; border: 3px solid white; border-radius: 4px; }
+        .close-lightbox { position: absolute; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
 
-        .lightbox-img {
-            max-width: 90%; max-height: 80vh;
-            border: 3px solid white; border-radius: 4px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .close-lightbox {
-            position: absolute; top: 30px; right: 40px;
-            color: white; font-size: 40px; cursor: pointer;
-        }
-
-        /* --- Footer --- */
         footer { background: #001a33; color: white; text-align: center; padding: 40px; margin-top: 50px; }
-        footer p { opacity: 0.8; font-size: 0.9rem; }
-
-        @media (max-width: 768px) {
-            .gallery-container { columns: 2; padding: 30px 5%; }
-            .gallery-header h1 { font-size: 2rem; }
-        }
-
-        @media (max-width: 480px) {
-            .gallery-container { columns: 1; }
-        }
     </style>
 </head>
 <body>
@@ -102,27 +71,23 @@
 
     <div class="gallery-header">
         <h1 data-aos="fade-down">Alashbal Union Gallery</h1>
-        <p data-aos="fade-up">Capturing the Spirit of Darul Arqam</p>
+        <p data-aos="fade-up">A Visual Journey Through Darul Arqam</p>
     </div>
 
     <div class="gallery-container">
-        <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
-            <img src="/union2.jpg" alt="Union Event">
-        </div>
-        
-        <div class="gallery-item" data-aos="fade-up" data-aos-delay="100" onclick="openLightbox(this)">
-            <img src="/fest2.jpg" alt="College Fest">
-        </div>
-        
-        <div class="gallery-item" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(this)">
-            <img src="/union1.jpg" alt="Academic Meet">
-        </div>
-        
-        <div class="gallery-item" data-aos="fade-up" data-aos-delay="300" onclick="openLightbox(this)">
-            <img src="/fest4.jpg" alt="Cultural Program">
-        </div>
-
-        </div>
+        <% if(images && images.length > 0) { %>
+            <% images.forEach(img => { %>
+                <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
+                    <img src="/uploads/gallery/<%= img %>" alt="Gallery Image">
+                </div>
+            <% }) %>
+        <% } else { %>
+            <div style="text-align: center; grid-column: 1/-1; padding: 50px; color: #666;">
+                <i class="fas fa-images fa-3x" style="margin-bottom: 15px; opacity: 0.3;"></i>
+                <p>No photos available in the gallery yet.</p>
+            </div>
+        <% } %>
+    </div>
 
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="close-lightbox">&times;</span>
@@ -131,33 +96,26 @@
 
     <footer>
         <p style="color: var(--gold); font-weight: bold; margin-bottom: 5px;">ALASHBAL STUDENT UNION</p>
-        <p>© 2026 Darul Arqam Sharee'a & Art's College. All Rights Reserved.</p>
+        <p>© 2026 Darul Arqam Sharee'a & Art's College.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Lightbox Logic
         function openLightbox(element) {
             const imgSrc = element.querySelector('img').src;
-            const lbImg = document.getElementById('lightbox-img');
-            const lb = document.getElementById('lightbox');
-            
-            lbImg.src = imgSrc;
-            lb.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Lock scroll
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = 'auto'; // Unlock scroll
+            document.body.style.overflow = 'auto';
         }
 
-        // Close on 'Esc' key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "Escape") closeLightbox();
-        });
+        document.addEventListener('keydown', (e) => { if (e.key === "Escape") closeLightbox(); });
     </script>
 </body>
 </html>
