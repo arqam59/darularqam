@@ -3,70 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Darul Arqam</title>
-    <link rel="stylesheet" href="/style.css">
+    <title>Master Admin | Darul Arqam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; padding: 20px; color: #333; }
-        .admin-box { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        h1 { color: #003366; text-align: center; border-bottom: 2px solid #003366; padding-bottom: 10px; }
-        .section { background: #fff; padding: 20px; border-radius: 10px; border: 1px solid #eee; margin-top: 20px; }
-        h2 { font-size: 1.2rem; color: #444; margin-bottom: 15px; }
-        input[type="text"], input[type="file"] { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        button { background: #003366; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
-        button:hover { background: #002244; }
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; background: #fafafa; margin-bottom: 5px; border-radius: 5px; }
-        .delete-btn { background: #dc3545; width: auto; padding: 5px 15px; font-size: 0.8rem; }
-        .back-link { display: block; text-align: center; margin-top: 20px; color: #003366; text-decoration: none; }
+        :root { --blue: #003366; --gold: #b38e44; --light: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--light); margin: 0; display: flex; }
+        
+        /* Sidebar Navigation */
+        .sidebar { width: 250px; background: var(--blue); color: white; height: 100vh; position: fixed; padding: 20px; }
+        .sidebar h2 { font-size: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .nav-item { padding: 15px 0; color: #ccc; cursor: pointer; display: block; text-decoration: none; }
+        .nav-item:hover { color: var(--gold); }
+
+        /* Main Content */
+        .main-content { margin-left: 250px; padding: 40px; width: 100%; }
+        .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        h3 { color: var(--blue); margin-top: 0; border-left: 4px solid var(--gold); padding-left: 10px; }
+
+        /* Forms & Inputs */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
+        input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { background: var(--blue); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: var(--gold); }
+        .btn-delete { background: #dc3545; padding: 5px 10px; font-size: 0.8rem; }
+
+        /* Grid for List Items */
+        .item-list { margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #fafafa; }
+        .preview-img { width: 60px; height: 40px; object-fit: cover; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<div class="admin-box">
-    <h1>College Management Panel</h1>
-
-    <div class="section">
-        <h2>📢 Update News Ticker</h2>
-        <form action="/admin/add-notif" method="POST">
-            <input type="text" name="text" placeholder="Type new announcement here..." required>
-            <button type="submit">Add to Ticker</button>
-        </form>
-
-        <div style="margin-top: 20px;">
-            <h3>Active Announcements:</h3>
-            <% notifs.forEach(item => { %>
-                <div class="list-item">
-                    <span><%= item.text %></span>
-                    <form action="/admin/delete/notif/<%= item._id %>" method="POST" style="margin:0;">
-                        <button type="submit" class="delete-btn">Delete</button>
-                    </form>
-                </div>
-            <% }) %>
-        </div>
+    <div class="sidebar">
+        <h2><i class="fas fa-user-shield"></i> Admin Portal</h2>
+        <a href="/" class="nav-item"><i class="fas fa-globe"></i> View Website</a>
+        <a href="#news" class="nav-item"><i class="fas fa-newspaper"></i> Latest News</a>
+        <a href="#gallery" class="nav-item"><i class="fas fa-images"></i> Union Gallery</a>
+        <a href="#settings" class="nav-item"><i class="fas fa-cog"></i> Site Settings</a>
     </div>
 
-    <div class="section">
-        <h2>🖼️ Upload Photo to Union Gallery</h2>
-        <form action="/admin/upload" method="POST" enctype="multipart/form-data">
-            <input type="text" name="title" placeholder="Event Name (e.g. Arts Fest 2026)" required>
-            <input type="file" name="image" accept="image/*" required>
-            <button type="submit">Upload Photo</button>
-        </form>
-
-        <div style="margin-top: 20px;">
-            <h3>Gallery Management:</h3>
-            <% photos.forEach(photo => { %>
-                <div class="list-item">
-                    <span><strong><%= photo.title %></strong></span>
-                    <form action="/admin/delete/photo/<%= photo._id %>" method="POST" style="margin:0;">
-                        <button type="submit" class="delete-btn">Remove</button>
-                    </form>
+    <div class="main-content">
+        
+        <div class="card" id="news">
+            <h3>Update Latest News & Notifications</h3>
+            <form action="/admin/add-notif" method="POST">
+                <div class="form-group">
+                    <label>News Content</label>
+                    <textarea name="text" rows="3" placeholder="Enter the scrolling news or announcement..." required></textarea>
                 </div>
-            <% }) %>
-        </div>
-    </div>
+                <button type="submit"><i class="fas fa-plus"></i> Post News</button>
+            </form>
 
-    <a href="/" class="back-link">← Go back to Website</a>
-</div>
+            <div class="item-list">
+                <h4>Active Notifications</h4>
+                <% notifs.forEach(n => { %>
+                    <div class="item-row">
+                        <span><%= n.text %></span>
+                        <form action="/admin/delete/notif/<%= n._id %>" method="POST">
+                            <button type="submit" class="btn-delete">Delete</button>
+                        </form>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+
+        <div class="card" id="gallery">
+            <h3>Union Gallery Management</h3>
+            <form action="/admin/upload" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Image Title</label>
+                    <input type="text" name="title" placeholder="Event Name / Description">
+                </div>
+                <div class="form-group">
+                    <label>Select Photo</label>
+                    <input type="file" name="image" required>
+                </div>
+                <button type="submit"><i class="fas fa-upload"></i> Upload to Gallery</button>
+            </form>
+
+            <div class="item-list">
+                <h4>Existing Gallery Photos</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
+                    <% photos.forEach(p => { %>
+                        <div style="text-align: center;">
+                            <img src="<%= p.url %>" class="preview-img" style="width: 100%; height: 100px;">
+                            <form action="/admin/delete/photo/<%= p._id %>" method="POST" style="margin-top: 5px;">
+                                <button type="submit" class="btn-delete" style="width: 100%;">Remove</button>
+                            </form>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="settings">
+            <h3>Website Visual Settings</h3>
+            <p style="font-size: 0.8rem; color: #666;">Note: Uploading here will update the specific section's background or featured image.</p>
+            
+            <form action="/admin/upload-special" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Target Section</label>
+                    <select name="target" style="width: 100%; padding: 10px; border-radius: 5px;">
+                        <option value="main_bg">Main Home Background</option>
+                        <option value="union_hero">Union Page Header</option>
+                        <option value="faculty_header">Faculty Header</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>New Image</label>
+                    <input type="file" name="image" required>
+                </div>
+                <button type="submit" style="background: var(--gold);"><i class="fas fa-sync"></i> Update Section Image</button>
+            </form>
+        </div>
+
+    </div>
 
 </body>
 </html>
