@@ -95,6 +95,82 @@
 
         .whatsapp-fixed { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 12px 20px; border-radius: 30px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 10px; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         footer { background: #001a33; color: white; padding: 20px; text-align: center; font-size: 13px; }
+        
+        /* Add transition to elements for smooth shrinking */
+header, .top-brand, .top-brand img, .brand-text h1 {
+    transition: all 0.3s ease-in-out;
+}
+
+/* This class will be added via JavaScript on scroll */
+header.scrolled {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+header.scrolled .top-brand {
+    padding: 5px 5%; /* Reduces vertical padding */
+    background: #fff;
+}
+
+header.scrolled .top-brand img {
+    height: 35px; /* Smaller logo on scroll */
+}
+
+header.scrolled .brand-text h1 {
+    font-size: 0.9rem; /* Smaller text on scroll */
+}
+
+header.scrolled .brand-text p {
+    display: none; /* Hides the sub-text to save space */
+}
+
+/* Adjust Hero margin to prevent jumping when header shrinks */
+#hero {
+    margin-top: 175px; /* Keep your original */
+}
+
+@media (max-width: 768px) {
+    header.scrolled .top-brand {
+        display: flex; /* Keeps branding visible but tiny */
+    }
+}
+
+@media (max-width: 768px) {
+    .top-brand {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 10px;
+    }
+    
+    .brand-text h1 {
+        font-size: 1rem;
+    }
+
+    /* Fixed the hero overlap for mobile */
+    #hero {
+        margin-top: 150px; 
+    }
+}
+
+/* Smoothly collapse the ticker height */
+.news-ticker {
+    transition: all 0.4s ease-in-out;
+    max-height: 40px; /* Adjust based on your current height */
+    opacity: 1;
+    overflow: hidden;
+}
+
+/* Class to hide the ticker */
+header.scrolled .news-ticker {
+    max-height: 0;
+    opacity: 0;
+    border: none;
+    padding: 0;
+}
+
+/* Adjust the Navbar to stay tight against the top brand when scrolled */
+header.scrolled .nav-bar {
+    padding: 5px 0;
+}
     </style>
 </head>
 <body>
@@ -258,6 +334,26 @@
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-times');
         });
+        
+        window.onscroll = function() {
+    const header = document.querySelector('header');
+    if (window.pageYOffset > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+};
+
+window.onscroll = function() {
+    const header = document.querySelector('header');
+    
+    // If scrolled more than 30px, shrink the header
+    if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+};
     </script>
 </body>
 </html>
