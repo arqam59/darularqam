@@ -159,3 +159,134 @@ header.disappearing ~ #hero {
 
 .whatsapp-fixed { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 12px 20px; border-radius: 30px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 10px; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 footer { background: #001a33; color: white; padding: 20px; text-align: center; font-size: 13px; }
+
+/* === MOBILE TOGGLE MENU ANIMATIONS === */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--dhiu-blue);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: scale(1);
+    position: relative;
+}
+
+.menu-toggle:hover {
+    transform: scale(1.1) rotate(90deg);
+    color: var(--dhiu-gold);
+    text-shadow: 0 0 10px rgba(179, 142, 68, 0.5);
+}
+
+/* Animated hamburger to X transformation */
+.menu-toggle .fas {
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.menu-toggle.active .fas.fa-bars {
+    transform: rotate(90deg) scale(0.8);
+}
+
+.menu-toggle.active .fas.fa-times {
+    transform: rotate(0deg) scale(1);
+}
+
+/* Sliding mobile menu with backdrop blur */
+.nav-links {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+}
+
+.nav-links.active {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* === SOCIAL MEDIA ICONS ANIMATIONS === */
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    perspective: 1000px;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white !important;
+    font-size: 1rem;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: linear-gradient(45deg, currentColor, rgba(255,255,255,0.3));
+    opacity: 0;
+    transform: scale(0.8) rotateY(180deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: -1;
+}
+
+.social-icon:hover {
+    transform: translateY(-8px) rotateY(360deg) scale(1.15);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+
+.social-icon:hover::before {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+}
+
+.social-icon:hover i {
+    transform: scale(1.2);
+    text-shadow: 0 0 15px rgba(255,255,255,0.8);
+}
+
+.facebook { background: linear-gradient(135deg, #3b5998, #2d4373); }
+.instagram { background: linear-gradient(135deg, #e4405f, #c13584); }
+.youtube { background: linear-gradient(135deg, #cd201f, #a61924); }
+
+/* Floating animation for social icons container */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.social-icons {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Mobile menu item animations */
+.nav-links li {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.nav-links.active li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+.nav-links.active li:nth-child(2) { transition-delay: 0.2s; }
+.nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
+.nav-links.active li:nth-child(4) { transition-delay: 0.4s; }
+.nav-links.active li:nth-child(5) { transition-delay: 0.5s; }
+
+
