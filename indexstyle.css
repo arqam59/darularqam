@@ -124,42 +124,6 @@ header.disappearing ~ #hero {
 /* --- Mobile Toggle --- */
 .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: var(--dhiu-blue); }
 
-/* --- Mobile Styles --- */
-@media (max-width: 768px) {
-    .menu-toggle { display: block; position: absolute; right: 20px; }
-    .nav-links { 
-        display: none; 
-        flex-direction: column; 
-        width: 100%; 
-        background: #fff; 
-        position: absolute; 
-        top: 100%; 
-        left: 0; 
-        box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
-    }
-    .nav-links.active { display: flex; padding: 20px 0; }
-    #hero { margin-top: 220px; height: 50vh; }
-    .welcome-container, .principal-msg { grid-template-columns: 1fr; text-align: center; }
-    
-    .top-brand {
-        flex-direction: row;
-        justify-content: flex-start;
-        padding: 10px;
-    }
-    .brand-text h1 {
-        font-size: 1rem;
-    }
-    #hero {
-        margin-top: 200px; 
-    }
-    header.disappearing ~ #hero {
-        margin-top: 10px !important;
-    }
-}
-
-.whatsapp-fixed { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 12px 20px; border-radius: 30px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 10px; z-index: 9999; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-footer { background: #001a33; color: white; padding: 20px; text-align: center; font-size: 13px; }
-
 /* === MOBILE TOGGLE MENU ANIMATIONS === */
 .menu-toggle {
     display: none;
@@ -288,5 +252,6 @@ footer { background: #001a33; color: white; padding: 20px; text-align: center; f
 .nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
 .nav-links.active li:nth-child(4) { transition-delay: 0.4s; }
 .nav-links.active li:nth-child(5) { transition-delay: 0.5s; }
+
 
 
