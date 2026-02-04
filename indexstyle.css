@@ -211,9 +211,71 @@ header.disappearing ~ #hero {
 .notif-date { background: #28a745; color: white; padding: 2px 8px; font-size: 0.7rem; font-weight: bold; border-radius: 3px; margin-bottom: 5px; display: inline-block; }
 
 /* --- Principal Message --- */
-.principal-msg { background: var(--dhiu-blue); color: white; padding: 60px 10%; display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: center; }
-.principal-img { width: 100%; border: 4px solid var(--dhiu-gold); border-radius: 5px; }
+/* --- Principal Section (The "Desk" Layout) --- */
+.principal-msg {
+    display: flex;
+    align-items: center; /* Vertically centers image and text */
+    justify-content: center;
+    background-color: #003366; /* Your deep blue brand color */
+    padding: 60px 10%;       /* Large horizontal padding for PC */
+    gap: 40px;               /* Space between image and text */
+    color: white;
+}
 
+/* --- Image Styling (PC) --- */
+.principal-img {
+    width: 280px;            /* Size matched to your reference photo */
+    height: auto;
+    border: 3px solid #b38e44; /* The gold border seen in image */
+    border-radius: 8px;      /* Slight rounding for professionalism */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+/* --- Text Content Styling --- */
+.principal-content {
+    max-width: 650px;
+    border-bottom: 1px solid rgba(179, 142, 68, 0.5); /* The gold underline in your photo */
+    padding-bottom: 20px;
+}
+
+.principal-content h2 {
+    color: #b38e44;          /* Principal's Desk Title Gold */
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.principal-content p {
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* --- MOBILE RESPONSIVE (Decreased Size) --- */
+@media (max-width: 768px) {
+    .principal-msg {
+        flex-direction: column; /* Stacks image on top of text */
+        text-align: center;
+        padding: 40px 20px;
+        gap: 20px;
+    }
+
+    .principal-img {
+        width: 150px;           /* Decreased size for mobile */
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;     /* Optional: Circle looks better on small screens */
+        border-width: 2px;
+    }
+
+    .principal-content {
+        border-bottom: none;    /* Remove line on mobile for a cleaner look */
+    }
+
+    .principal-content h2 {
+        font-size: 1.4rem;
+    }
+}
 /* --- Footer & Contact --- */
 .contact-footer { background: #f9f9f9; padding: 60px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; border-top: 1px solid #eee; }
 .footer-links a { display: block; text-decoration: none; color: #444; margin-bottom: 10px; font-weight: bold; transition: 0.3s; }
