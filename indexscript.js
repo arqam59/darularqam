@@ -14,51 +14,32 @@ if(slides.length > 1) {
     }, 5000);
 }
 
-// *** DYNAMIC MOBILE MENU TOGGLE WITH ANIMATIONS ***
+// Mobile Menu Toggle
 const mobileMenu = document.getElementById('mobile-menu');
 const navList = document.getElementById('nav-list');
-const menuIcon = mobileMenu.querySelector('i');
-
-mobileMenu.addEventListener('click', function() {
-    // Toggle menu visibility
+mobileMenu.addEventListener('click', () => {
     navList.classList.toggle('active');
-    
-    // Animate hamburger to X transformation
-    if (navList.classList.contains('active')) {
-        menuIcon.classList.remove('fa-bars');
-        menuIcon.classList.add('fa-times');
-        mobileMenu.classList.add('active');
-    } else {
-        menuIcon.classList.remove('fa-times');
-        menuIcon.classList.add('fa-bars');
-        mobileMenu.classList.remove('active');
-    }
-    
-    // Close menu when clicking on a link
-    const navLinks = navList.querySelectorAll('a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navList.classList.remove('active');
-            menuIcon.classList.remove('fa-times');
-            menuIcon.classList.add('fa-bars');
-            mobileMenu.classList.remove('active');
-        });
-    });
+    const icon = mobileMenu.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-times');
 });
 
 // *** ENHANCED HEADER DISAPPEAR ON SCROLL ***
 let lastScrollTop = 0;
 const header = document.getElementById('main-header');
+const hero = document.getElementById('hero');
 
 window.addEventListener('scroll', function() {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
+    // Header disappears completely after 200px scroll
     if (scrollTop > 200) {
         header.classList.add('disappearing');
     } else {
         header.classList.remove('disappearing');
     }
     
+    // Optional: Scroll direction sensitivity (hides on scroll down, shows on scroll up)
     if (scrollTop > lastScrollTop && scrollTop > 100) {
         header.classList.add('disappearing');
     } else if (scrollTop < 50) {
