@@ -97,87 +97,87 @@
         footer { background: #001a33; color: white; padding: 20px; text-align: center; font-size: 13px; }
         
         /* Add transition to elements for smooth shrinking */
-header, .top-brand, .top-brand img, .brand-text h1 {
-    transition: all 0.3s ease-in-out;
-}
+        header, .top-brand, .top-brand img, .brand-text h1 {
+            transition: all 0.3s ease-in-out;
+        }
 
-/* This class will be added via JavaScript on scroll */
-header.scrolled {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
+        /* This class will be added via JavaScript on scroll */
+        header.scrolled {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
 
-header.scrolled .top-brand {
-    padding: 5px 5%; /* Reduces vertical padding */
-    background: #fff;
-}
+        header.scrolled .top-brand {
+            padding: 5px 5%; /* Reduces vertical padding */
+            background: #fff;
+        }
 
-header.scrolled .top-brand img {
-    height: 35px; /* Smaller logo on scroll */
-}
+        header.scrolled .top-brand img {
+            height: 35px; /* Smaller logo on scroll */
+        }
 
-header.scrolled .brand-text h1 {
-    font-size: 0.9rem; /* Smaller text on scroll */
-}
+        header.scrolled .brand-text h1 {
+            font-size: 0.9rem; /* Smaller text on scroll */
+        }
 
-header.scrolled .brand-text p {
-    display: none; /* Hides the sub-text to save space */
-}
+        header.scrolled .brand-text p {
+            display: none; /* Hides the sub-text to save space */
+        }
 
-/* Adjust Hero margin to prevent jumping when header shrinks */
-#hero {
-    margin-top: 175px; /* Keep your original */
-}
+        /* Adjust Hero margin to prevent jumping when header shrinks */
+        #hero {
+            margin-top: 175px; /* Keep your original */
+        }
 
-@media (max-width: 768px) {
-    header.scrolled .top-brand {
-        display: flex; /* Keeps branding visible but tiny */
-    }
-}
+        @media (max-width: 768px) {
+            header.scrolled .top-brand {
+                display: flex; /* Keeps branding visible but tiny */
+            }
+        }
 
-@media (max-width: 768px) {
-    .top-brand {
-        flex-direction: row;
-        justify-content: flex-start;
-        padding: 10px;
-    }
-    
-    .brand-text h1 {
-        font-size: 1rem;
-    }
+        @media (max-width: 768px) {
+            .top-brand {
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 10px;
+            }
+            
+            .brand-text h1 {
+                font-size: 1rem;
+            }
 
-    /* Fixed the hero overlap for mobile */
-    #hero {
-        margin-top: 150px; 
-    }
-}
+            /* Fixed the hero overlap for mobile */
+            #hero {
+                margin-top: 150px; 
+            }
+        }
 
-/* Smoothly collapse the ticker height */
-.news-ticker {
-    transition: all 0.4s ease-in-out;
-    max-height: 40px; /* Adjust based on your current height */
-    opacity: 1;
-    overflow: hidden;
-}
+        /* Smoothly collapse the ticker height */
+        .news-ticker {
+            transition: all 0.4s ease-in-out;
+            max-height: 40px; /* Adjust based on your current height */
+            opacity: 1;
+            overflow: hidden;
+        }
 
-/* Class to hide the ticker */
-header.scrolled .news-ticker {
-    max-height: 0;
-    opacity: 0;
-    border: none;
-    padding: 0;
-}
+        /* Class to hide the ticker */
+        header.scrolled .news-ticker {
+            max-height: 0;
+            opacity: 0;
+            border: none;
+            padding: 0;
+        }
 
-/* Adjust the Navbar to stay tight against the top brand when scrolled */
-header.scrolled .nav-bar {
-    padding: 5px 0;
-}
+        /* Adjust the Navbar to stay tight against the top brand when scrolled */
+        header.scrolled .nav-bar {
+            padding: 5px 0;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="top-brand">
-            <img src="/logo.png" alt="Logo">
+            <img src="logo.png" alt="Logo">
             <div class="brand-text">
                 <h1>DARUL ARQAM SHAREE'A AND ART'S COLLEGE</h1>
                 <p>AFFILIATED TO JAMIYYA NOORIYYA ARABIYYA PATTIKKAD</p>
@@ -186,30 +186,26 @@ header.scrolled .nav-bar {
         <div class="news-ticker">
             <div class="ticker-label">LATEST NEWS</div>
             <div class="ticker-content">
-                <% if (typeof notifs !== 'undefined' && notifs.length > 0) { %>
-                    <% notifs.forEach(n => { %> <%= n.text %> • <% }) %>
-                <% } else { %>
-                    Welcome to Darul Arqam Sharee'a and Art's College.
-                <% } %>
+                Welcome to Darul Arqam Sharee'a and Art's College. • Admission 2026 Open • New Faculty Appointments • Union Elections Scheduled
             </div>
         </div>
         <nav class="nav-bar">
             <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
             <ul class="nav-links" id="nav-list">
-                <li><a href="/">Home</a></li>
-                <li><a href="/admission-portal">Admissions</a></li>
-                <li><a href="/faculty">Faculty</a></li>
-                <li><a href="/union-gallery">Union Gallery</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#admissions">Admissions</a></li>
+                <li><a href="#faculty">Faculty</a></li>
+                <li><a href="#gallery">Union Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
    <section id="hero">
-    <div class="hero-slide active" style="background-image: url('/bg1.jpg')"></div>
-    <div class="hero-slide" style="background-image: url('/bg2.jpg')"></div>
-    <div class="hero-slide" style="background-image: url('/bg3.jpg')"></div>
-    <div class="hero-slide" style="background-image: url('/bg4.jpg')"></div>
+    <div class="hero-slide active" style="background-image: url('bg1.jpg')"></div>
+    <div class="hero-slide" style="background-image: url('bg2.jpg')"></div>
+    <div class="hero-slide" style="background-image: url('bg3.jpg')"></div>
+    <div class="hero-slide" style="background-image: url('bg4.jpg')"></div>
     
     <div class="hero-overlay">
         <h2 data-aos="zoom-in" style="font-size: 3rem;">Nurturing Future Scholars</h2>
@@ -219,7 +215,7 @@ header.scrolled .nav-bar {
 
     <section class="welcome-section">
         <div class="welcome-container" data-aos="fade-up">
-            <div class="welcome-image"><img src="/union1.jpg" alt="Campus"></div>
+            <div class="welcome-image"><img src="union1.jpg" alt="Campus"></div>
             <div class="welcome-text">
                 <h3>Welcome to</h3>
                 <h2>DARUL ARQAM COLLEGE</h2>
@@ -249,23 +245,30 @@ header.scrolled .nav-bar {
                 <div class="card-header notif-header">NOTIFICATIONS</div>
                 <div class="notif-ticker-container">
                     <div class="notif-ticker-content">
-                        <% if (typeof notifs !== 'undefined' && notifs.length > 0) { %>
-                            <% notifs.forEach(n => { %>
-                                <div class="notif-item">
-                                    <span class="notif-date">NEW</span>
-                                    <p><%= n.text %></p>
-                                </div>
-                            <% }) %>
-                            <%# Duplicate loop to ensure continuous scroll effect %>
-                            <% notifs.forEach(n => { %>
-                                <div class="notif-item">
-                                    <span class="notif-date">NEW</span>
-                                    <p><%= n.text %></p>
-                                </div>
-                            <% }) %>
-                        <% } else { %>
-                            <div class="notif-item"><p>No new notifications at this time.</p></div>
-                        <% } %>
+                        <div class="notif-item">
+                            <span class="notif-date">NEW</span>
+                            <p>Admission 2026 Open - Apply Now</p>
+                        </div>
+                        <div class="notif-item">
+                            <span class="notif-date">NEW</span>
+                            <p>New Faculty Appointments Announced</p>
+                        </div>
+                        <div class="notif-item">
+                            <span class="notif-date">NEW</span>
+                            <p>Union Elections Scheduled for March</p>
+                        </div>
+                        <div class="notif-item">
+                            <span class="notif-date">NEW</span>
+                            <p>Admission 2026 Open - Apply Now</p>
+                        </div>
+                        <div class="notif-item">
+                            <span class="notif-date">NEW</span>
+                            <p>New Faculty Appointments Announced</p>
+                        </div>
+                        <div class="notif-item">
+                            <span class="notif-date">NEW</span>
+                            <p>Union Elections Scheduled for March</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -273,7 +276,7 @@ header.scrolled .nav-bar {
     </section>
 
     <section class="principal-msg">
-        <img src="/principal.png" class="principal-img" data-aos="fade-right">
+        <img src="principal.png" class="principal-img" data-aos="fade-right">
         <div class="principal-text" data-aos="fade-left">
             <h2 style="color: var(--dhiu-gold); margin-bottom: 15px; border-bottom: 2px solid;">Principal's Desk</h2>
             <blockquote style="font-size: 1.2rem; font-style: italic;">"We strive to produce scholars deeply rooted in Shari'a knowledge while being proficient in contemporary arts and leadership."</blockquote>
@@ -284,9 +287,9 @@ header.scrolled .nav-bar {
     <section class="contact-footer" id="contact">
         <div class="footer-links">
             <h3 style="color:var(--dhiu-blue); margin-bottom:15px;">Quick Links</h3>
-            <a href="/admission-portal"><i class="fas fa-chevron-right"></i> Admission 2026</a>
-            <a href="/union-gallery"><i class="fas fa-chevron-right"></i> Union Gallery</a>
-            <a href="/faculty"><i class="fas fa-chevron-right"></i> Faculty Members</a>
+            <a href="#admissions"><i class="fas fa-chevron-right"></i> Admission 2026</a>
+            <a href="#gallery"><i class="fas fa-chevron-right"></i> Union Gallery</a>
+            <a href="#faculty"><i class="fas fa-chevron-right"></i> Faculty Members</a>
         </div>
         <div>
             <h3 style="color:var(--dhiu-blue); margin-bottom:15px;">Reach Us</h3>
@@ -339,28 +342,13 @@ header.scrolled .nav-bar {
         });
         
         window.onscroll = function() {
-    const header = document.querySelector('header');
-    if (window.pageYOffset > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-};
-
-window.onscroll = function() {
-    const header = document.querySelector('header');
-    
-    // If scrolled more than 30px, shrink the header
-    if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-};
+            const header = document.querySelector('header');
+            if (window.pageYOffset > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        };
     </script>
 </body>
 </html>
-
-
-
-
