@@ -24,8 +24,7 @@
 
         /* --- Header --- */
         .gallery-header { 
-            /* Fixed: Uses dynamic hero image if available, else falls back to bg2.png */
-            background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), url('<%= typeof hero !== "undefined" ? hero : "/bg2.png" %>'); 
+            background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), url('bg2.jpg');
             color: white; padding: 80px 20px; text-align: center; background-size: cover; background-position: center;
         }
         .gallery-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
@@ -61,13 +60,20 @@
         .close-lightbox { position: absolute; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
 
         footer { background: #001a33; color: white; text-align: center; padding: 40px; margin-top: 50px; }
+
+        @media (max-width: 768px) {
+            .gallery-container { columns: 2 250px; }
+        }
+        @media (max-width: 480px) {
+            .gallery-container { columns: 1 100%; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> BACK TO HOME</a>
-        <img src="/logo.png" alt="Logo" style="height: 45px;">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK TO HOME</a>
+        <img src="logo.png" alt="Darul Arqam Logo" style="height: 45px;">
     </nav>
 
     <div class="gallery-header">
@@ -76,28 +82,40 @@
     </div>
 
     <div class="gallery-container">
-        <% if(photos && photos.length > 0) { %>
-            <% photos.forEach(photo => { %>
-                <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
-                    <img src="<%= photo.url %>" alt="<%= photo.title %>">
-                </div>
-            <% }) %>
-        <% } else { %>
-            <div style="text-align: center; padding: 50px; color: #666; width: 100%;">
-                <i class="fas fa-images fa-3x" style="margin-bottom: 15px; opacity: 0.3;"></i>
-                <p>No photos available in the gallery yet.</p>
-            </div>
-        <% } %>
+        <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
+            <img src="union1.jpg" alt="Union Event 1">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" data-aos-delay="100" onclick="openLightbox(this)">
+            <img src="union2.jpg" alt="Union Event 2">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(this)">
+            <img src="union3.jpg" alt="Union Event 3">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" data-aos-delay="300" onclick="openLightbox(this)">
+            <img src="union4.jpg" alt="Union Event 4">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" data-aos-delay="400" onclick="openLightbox(this)">
+            <img src="union5.jpg" alt="Union Event 5">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" data-aos-delay="500" onclick="openLightbox(this)">
+            <img src="union6.jpg" alt="Union Event 6">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" data-aos-delay="600" onclick="openLightbox(this)">
+            <img src="union7.jpg" alt="Union Event 7">
+        </div>
+        <div class="gallery-item" data-aos="fade-up" data-aos-delay="700" onclick="openLightbox(this)">
+            <img src="union8.jpg" alt="Union Event 8">
+        </div>
     </div>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="close-lightbox">&times;</span>
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <span class="close-lightbox" onclick="closeLightbox(event)">&times;</span>
         <img src="" class="lightbox-img" id="lightbox-img">
     </div>
 
     <footer>
         <p style="color: var(--gold); font-weight: bold; margin-bottom: 5px;">ALASHBAL STUDENT UNION</p>
-        <p>© 2026 Darul Arqam Sharee'a & Art's College.</p>
+        <p>© 2026 Darul Arqam Sharee'a & Art's College | Perinthalmanna, Kerala</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -111,7 +129,8 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function closeLightbox() {
+        function closeLightbox(event) {
+            if (event) event.stopPropagation();
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
