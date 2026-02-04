@@ -8,6 +8,7 @@
     --fb-color: #3b5998;
     --ig-color: #e4405f;
     --yt-color: #cd201f;
+    --whatsapp-green: #25d366;
 }
 
 /* --- Global Reset --- */
@@ -138,9 +139,7 @@ header.disappearing {
     transition: 0.3s; 
 }
 
-.nav-links a:hover { 
-    color: var(--dhiu-blue); 
-}
+.nav-links a:hover { color: var(--dhiu-blue); }
 
 /* --- Hero Slider --- */
 #hero { 
@@ -168,9 +167,7 @@ header.disappearing ~ #hero {
     z-index: 1; 
 }
 
-.hero-slide.active { 
-    opacity: 1; 
-}
+.hero-slide.active { opacity: 1; }
 
 .hero-overlay { 
     position: relative; 
@@ -186,7 +183,7 @@ header.disappearing ~ #hero {
     text-align: center; 
 }
 
-/* --- Sections General --- */
+/* --- Welcome Section --- */
 .welcome-section { padding: 60px 10%; background: #fff; }
 .welcome-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: start; }
 .welcome-image img { width: 100%; border: 1px solid #ddd; padding: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 5px; }
@@ -222,13 +219,8 @@ header.disappearing ~ #hero {
 .footer-links a { display: block; text-decoration: none; color: #444; margin-bottom: 10px; font-weight: bold; transition: 0.3s; }
 .footer-links a:hover { color: var(--dhiu-gold); padding-left: 5px; }
 
-/* --- DYNAMIC SOCIAL ICONS --- */
-.social-icons { 
-    display: flex; 
-    gap: 15px; 
-    margin-top: 20px; 
-}
-
+/* --- Social Icons --- */
+.social-icons { display: flex; gap: 15px; margin-top: 20px; }
 .social-icon { 
     width: 40px; 
     height: 40px; 
@@ -248,26 +240,11 @@ header.disappearing ~ #hero {
 .instagram { background: var(--ig-color); animation-delay: 0.5s; }
 .youtube { background: var(--yt-color); animation-delay: 1s; }
 
-/* Hover Animations */
-.social-icon:hover {
-    transform: scale(1.2) rotate(15deg);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-    filter: brightness(1.2);
-}
-
-.social-icon:hover i {
-    animation: pulse-icon 0.5s ease;
-}
+.social-icon:hover { transform: scale(1.2) rotate(15deg); box-shadow: 0 8px 15px rgba(0,0,0,0.2); filter: brightness(1.2); }
 
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
-}
-
-@keyframes pulse-icon {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
 }
 
 /* --- Floating Components --- */
@@ -275,7 +252,7 @@ header.disappearing ~ #hero {
     position: fixed; 
     bottom: 20px; 
     right: 20px; 
-    background: var(--whatsapp-green); 
+    background: #25d366; 
     color: white; 
     padding: 12px 20px; 
     border-radius: 30px; 
@@ -289,20 +266,9 @@ header.disappearing ~ #hero {
     transition: 0.3s;
 }
 
-.whatsapp-fixed:hover { 
-    transform: scale(1.05); 
-    background: #20ba5a; 
-}
+footer { background: #001a33; color: white; padding: 20px; text-align: center; font-size: 13px; }
 
-footer { 
-    background: #001a33; 
-    color: white; 
-    padding: 20px; 
-    text-align: center; 
-    font-size: 13px; 
-}
-
-/* --- Mobile Menu & Responsive --- */
+/* --- MOBILE RESPONSIVE --- */
 .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: var(--dhiu-blue); }
 
 @media (max-width: 768px) {
@@ -320,13 +286,31 @@ footer {
     }
     
     .nav-links.active { display: flex; padding: 20px 0; }
-    
     .nav-links li { margin: 10px 0; width: 100%; text-align: center; }
 
     #hero { margin-top: 180px; height: 50vh; }
 
-    .welcome-container, .principal-msg { grid-template-columns: 1fr; text-align: center; }
-    
+    /* Centering and shrinking images for Phone */
+    .welcome-container, .principal-msg { 
+        grid-template-columns: 1fr; 
+        text-align: center; 
+        justify-items: center;
+    }
+
+    /* Shrink Welcome/College Image */
+    .welcome-image {
+        width: 80%;
+        max-width: 280px; /* Reduced size */
+        margin: 0 auto 20px;
+    }
+
+    /* Shrink Principal Image */
+    .principal-img { 
+        width: 180px; /* Smaller suitable size for mobile */
+        height: auto;
+        margin: 0 auto;
+    }
+
     .top-brand { flex-direction: column; text-align: center; }
     .top-brand img { margin: 0 0 10px 0; }
     .brand-text h1 { font-size: 1.1rem; }
