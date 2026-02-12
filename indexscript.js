@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Hero Slider Logic
 let idx = 0;
 const slides = document.querySelectorAll('.hero-slide');
-if(slides.length > 1) {
+if (slides.length > 1) {
     setInterval(() => {
         slides[idx].classList.remove('active');
         idx = (idx + 1) % slides.length;
@@ -47,4 +47,19 @@ window.addEventListener('scroll', function() {
     }
     
     lastScrollTop = scrollTop;
+});
+
+
+// Dynamic scroll effect for floating icons
+window.addEventListener('scroll', function() {
+    const emailBtn = document.querySelector('.email-fixed');
+    const scrollPosition = window.scrollY;
+    
+    if (scrollPosition > 300) {
+        emailBtn.style.opacity = "1";
+        emailBtn.style.visibility = "visible";
+    } else {
+        // Optional: Hide it when at the very top of the page
+        // emailBtn.style.opacity = "0.7"; 
+    }
 });
