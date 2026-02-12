@@ -3,108 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alashbal Union Gallery | Darul Arqam</title>
+    <title>Alashbal Union | Dynamic Gallery</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root { --blue: #003366; --gold: #b38e44; --bg: #f8fafc; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Times New Roman', serif; background: var(--bg); color: #333; overflow-x: hidden; }
+        :root { 
+            --blue: #003366; 
+            --gold: #b38e44; 
+            --bg: #f8fafc; 
+            --card-bg: #ffffff;
+            --text: #333333;
+            --nav-bg: #ffffff;
+            --white: #ffffff;
+        }
 
-        /* --- Navigation --- */
+        /* --- Dark Mode Variables --- */
+        [data-theme="dark"] {
+            --bg: #0a0f14;
+            --card-bg: #151c24;
+            --text: #e0e0e0;
+            --nav-bg: #0d131a;
+            --blue: #1e3a8a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background 0.4s ease, color 0.3s ease; }
+        body { font-family: 'Times New Roman', serif; background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* --- Navigation & Theme Toggle --- */
         nav { 
-            background: #fff; padding: 15px 8%; display: flex; 
+            background: var(--nav-bg); padding: 15px 8%; display: flex; 
             justify-content: space-between; align-items: center; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; 
         }
-        .back-btn { text-decoration: none; color: var(--blue); font-weight: bold; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .back-btn:hover { color: var(--gold); }
+        .nav-controls, .back-btn { display: flex; align-items: center; gap: 20px; }
+        .back-btn { text-decoration: none; color: var(--blue); font-weight: bold; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .back-btn:hover { color: var(--gold); transform: translateX(-5px); }
+        .theme-toggle { cursor: pointer; font-size: 1.2rem; color: var(--gold); border: none; background: none; }
 
-        /* --- Header --- */
+        /* --- Countdown Header --- */
         .gallery-header { 
             background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.85)), url('bg2.jpg');
-            color: white; padding: 80px 20px; text-align: center; background-size: cover; background-position: center;
+            color: white; padding: 100px 20px; text-align: center; background-size: cover; background-position: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
         }
-        .gallery-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .gallery-header p { color: var(--gold); font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; }
+        .gallery-header h1 { font-size: 3.5rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 4px; }
+        #countdown { display: flex; justify-content: center; gap: 15px; margin-top: 20px; font-weight: bold; flex-wrap: wrap; }
+        .count-box { background: rgba(179, 142, 68, 0.2); border: 1px solid var(--gold); padding: 10px; border-radius: 8px; min-width: 70px; }
+        .count-box span { display: block; font-size: 1.5rem; }
 
-        /* --- Masonry Grid --- */
-        .gallery-container {
-            padding: 40px 8%;
-            columns: 3 300px;
-            column-gap: 20px;
+        /* --- Notice Board --- */
+        .notice-board { padding: 40px 8%; }
+        .notice-container { 
+            background: var(--card-bg); border-radius: 15px; padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); animation: float 6s ease-in-out infinite;
         }
+        .notice-item { display: flex; gap: 20px; padding: 20px; border-radius: 10px; margin-bottom: 10px; transition: 0.3s; }
+        .notice-item:hover { background: rgba(179, 142, 68, 0.1); transform: scale(1.02); }
+        .notice-date { background: var(--blue); color: white; padding: 15px; border-radius: 10px; min-width: 90px; text-align: center; }
+        .notice-date span { display: block; font-weight: bold; }
 
+        /* --- Member Cards --- */
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 40px 8%; }
+        .member-card { 
+            background: var(--card-bg); text-align: center; padding: 40px 20px; 
+            border-radius: 20px; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); position: relative; overflow: hidden;
+        }
+        .member-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--blue), var(--gold));
+            transform: scaleX(0); transition: 0.5s;
+        }
+        .member-card:hover { transform: translateY(-15px) rotateX(5deg); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        .member-card:hover::before { transform: scaleX(1); }
+        .member-img { 
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover; 
+            margin-bottom: 20px; border: 4px solid #f0f0f0; transition: 0.5s;
+        }
+        .member-card:hover .member-img { border-color: var(--gold); transform: scale(1.1); }
+        .member-card h3 { color: var(--gold); }
+
+        /* --- Gallery --- */
+        .gallery-container { padding: 40px 8%; columns: 3 300px; column-gap: 25px; }
         .gallery-item {
-            width: 100%; margin-bottom: 20px; break-inside: avoid; 
-            border-radius: 8px; overflow: hidden;
-            background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer; transition: transform 0.3s ease;
+            position: relative; margin-bottom: 25px; break-inside: avoid; 
+            border-radius: 12px; overflow: hidden; cursor: pointer;
         }
-
-        .gallery-item img { width: 100%; height: auto; display: block; transition: 0.5s ease; }
-        .gallery-item:hover { transform: translateY(-5px); }
-        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item img { width: 100%; transition: 0.8s cubic-bezier(0.2, 1, 0.2, 1); }
+        .gallery-item::after {
+            content: '\\f00e'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 51, 102, 0.6); color: white;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem;
+            opacity: 0; transition: 0.4s;
+        }
+        .gallery-item:hover img { transform: scale(1.15) rotate(2deg); }
+        .gallery-item:hover::after { opacity: 1; }
 
         /* --- Lightbox --- */
         .lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: none; justify-content: center; align-items: center;
-            z-index: 2000; padding: 20px;
+            background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center;
+            z-index: 2000; backdrop-filter: blur(10px);
         }
-        .lightbox.active { display: flex; }
-        .lightbox-img { max-width: 90%; max-height: 85vh; border: 3px solid white; border-radius: 4px; }
-        .close-lightbox { position: absolute; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; }
+        .lightbox.active { display: flex; animation: fadeIn 0.3s; }
+        .lightbox-img { max-width: 85%; max-height: 80vh; transform: scale(0.8); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .lightbox.active .lightbox-img { transform: scale(1); }
+        .close-lightbox { position: absolute; top: 20px; right: 30px; color: white; font-size: 2rem; cursor: pointer; }
 
-        footer { background: #001a33; color: white; text-align: center; padding: 40px; margin-top: 50px; }
+        /* --- Animations & Typography --- */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-title { text-align: center; margin: 80px 0 40px; font-size: 2.5rem; color: var(--blue); }
+        .section-title span { color: var(--gold); }
+        [data-theme="dark"] .section-title { color: var(--gold); }
 
-        @media (max-width: 768px) {
-            .gallery-container { columns: 2 250px; }
-        }
-        @media (max-width: 480px) {
-            .gallery-container { columns: 1 100%; }
+        /* --- Footer --- */
+        footer { background: #001122; color: white; text-align: center; padding: 60px; margin-top: 50px; }
+        
+        /* --- Responsive --- */
+        @media (max-width: 768px) { 
+            .gallery-container { columns: 2; } 
+            .gallery-header h1 { font-size: 2.2rem; }
+            #countdown { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
     <nav>
-        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK TO HOME</a>
-        <img src="logo.png" alt="Darul Arqam Logo" style="height: 45px;">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> HOME</a>
+        <div class="nav-controls">
+            <button class="theme-toggle" onclick="toggleTheme()" id="theme-icon">
+                <i class="fas fa-moon"></i>
+            </button>
+            <img src="logo.png" alt="Logo" style="height: 40px;">
+        </div>
     </nav>
 
     <div class="gallery-header">
-        <h1 data-aos="fade-down">Alashbal Union Gallery</h1>
-        <p data-aos="fade-up">A Visual Journey Through Darul Arqam</p>
+        <h1 data-aos="zoom-out">Alashbal Union</h1>
+        <p>NEXT MAJOR EVENT IN:</p>
+        <div id="countdown">
+            <div class="count-box"><span id="days">00</span>Days</div>
+            <div class="count-box"><span id="hours">00</span>Hrs</div>
+            <div class="count-box"><span id="mins">00</span>Min</div>
+            <div class="count-box"><span id="secs">00</span>Sec</div>
+        </div>
     </div>
 
-    <div class="gallery-container">
-        <div class="gallery-item" data-aos="fade-up" onclick="openLightbox(this)">
-            <img src="union1.jpg" alt="Union Event 1">
+    <section class="notice-board">
+        <h2 class="section-title" data-aos="fade-right">Recent <span>Notices</span></h2>
+        <div class="notice-container" data-aos="flip-up">
+            <div class="notice-item">
+                <div class="notice-date">
+                    <span>25</span> FEB
+                </div>
+                <div class="notice-content">
+                    <h4>Annual General Body</h4>
+                    <p>All students are requested to attend the session at 9:30 AM.</p>
+                </div>
+            </div>
+            <div class="notice-item">
+                <div class="notice-date">
+                    <span>05</span> MAR
+                </div>
+                <div class="notice-content">
+                    <h4>Cultural Fest '26-27</h4>
+                    <p>Registration for arts and sports competitions is now open.</p>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <h2 class="section-title" data-aos="fade-left">Union <span>Leadership</span></h2>
+    <div class="members-grid">
+        <div class="member-card" data-aos="fade-up" data-aos-delay="100">
+            <img src="chairman.jpg" alt="Chairman" class="member-img">
+            <h3></h3>
+            <p>Chairman</p>
+        </div>
+        <div class="member-card" data-aos="fade-up" data-aos-delay="200">
+            <img src="member2.jpg" alt="Vice Chairman" class="member-img">
+            <h3></h3>
+            <p>Vice Chairman</p>
+        </div>
+        <div class="member-card" data-aos="fade-up" data-aos-delay="300">
+            <img src="member3.jpg" alt="Secretary" class="member-img">
+            <h3></h3>
+            <p>General Secretary</p>
+        </div>
+        <div class="member-card" data-aos="fade-up" data-aos-delay="400">
+            <img src="member4.jpg" alt="Treasurer" class="member-img">
+            <h3></h3>
+            <p>Treasurer</p>
+        </div>
+    </div>
+
+    <h2 class="section-title" data-aos="zoom-in">Visual <span>Archives</span></h2>
+    <div class="gallery-container">
         <div class="gallery-item" data-aos="fade-up" data-aos-delay="100" onclick="openLightbox(this)">
-            <img src="union2.jpg" alt="Union Event 2">
+            <img src="union1.jpg" alt="Event">
         </div>
         <div class="gallery-item" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox(this)">
-            <img src="union3.jpg" alt="Union Event 3">
+            <img src="union2.jpg" alt="Event">
         </div>
         <div class="gallery-item" data-aos="fade-up" data-aos-delay="300" onclick="openLightbox(this)">
-            <img src="union4.jpg" alt="Union Event 4">
+            <img src="union3.jpg" alt="Event">
         </div>
         <div class="gallery-item" data-aos="fade-up" data-aos-delay="400" onclick="openLightbox(this)">
-            <img src="union5.jpg" alt="Union Event 5">
-        </div>
-        <div class="gallery-item" data-aos="fade-up" data-aos-delay="500" onclick="openLightbox(this)">
-            <img src="union6.jpg" alt="Union Event 6">
-        </div>
-        <div class="gallery-item" data-aos="fade-up" data-aos-delay="600" onclick="openLightbox(this)">
-            <img src="union7.jpg" alt="Union Event 7">
-        </div>
-        <div class="gallery-item" data-aos="fade-up" data-aos-delay="700" onclick="openLightbox(this)">
-            <img src="union8.jpg" alt="Union Event 8">
+            <img src="union4.jpg" alt="Event">
         </div>
     </div>
 
@@ -114,14 +224,68 @@
     </div>
 
     <footer>
-        <p style="color: var(--gold); font-weight: bold; margin-bottom: 5px;">ALASHBAL STUDENT UNION</p>
-        <p>© 2026 Darul Arqam Sharee'a & Art's College | Perinthalmanna, Kerala</p>
+        <p style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">ALASHBAL STUDENT UNION</p>
+        <p>© 2026 Darul Arqam Sharee'a & Art's College</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        // Initialize AOS with enhanced settings
+        AOS.init({ duration: 1200, once: false, mirror: true });
 
+        // --- Enhanced Persistent Dark Mode ---
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('#theme-icon i');
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme); // Saves choice
+            
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
+
+        // Check for saved theme on page load
+        window.onload = () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                const icon = document.querySelector('#theme-icon i');
+                if(savedTheme === 'dark') {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                }
+            }
+        };
+
+        // --- Enhanced Fixed Countdown Timer ---
+        const targetDate = new Date("March 25, 2026 10:00:00").getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff > 0) {
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = d.toString().padStart(2, '0');
+                document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+                document.getElementById("mins").innerText = m.toString().padStart(2, '0');
+                document.getElementById("secs").innerText = s.toString().padStart(2, '0');
+            } else {
+                document.getElementById("countdown").innerHTML = "<h4 style='color: var(--gold); font-size: 1.8rem;'>THE EVENT HAS STARTED!</h4>";
+            }
+        }
+
+        // Run every second
+        setInterval(updateTimer, 1000);
+        updateTimer(); // Run once immediately so it doesn't show 00 on load
+
+        // --- Lightbox Functions ---
         function openLightbox(element) {
             const imgSrc = element.querySelector('img').src;
             document.getElementById('lightbox-img').src = imgSrc;
@@ -130,14 +294,11 @@
         }
 
         function closeLightbox(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = 'auto';
+            if (event.target.classList.contains('lightbox') || event.target.classList.contains('close-lightbox')) {
+                document.getElementById('lightbox').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
         }
-
-        document.addEventListener('keydown', (e) => { 
-            if (e.key === "Escape") closeLightbox(); 
-        });
     </script>
 </body>
 </html>
