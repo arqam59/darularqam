@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Faculty | Darul Arqam College</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -12,59 +13,111 @@
         :root {
             --dhiu-blue: #003366;
             --dhiu-gold: #b38e44;
-            --light-bg: #f8fafc;
+            --light-bg: #f8fafc; /* Kept your original background color */
             --white: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Times New Roman', serif; background: var(--light-bg); color: #333; overflow-x: hidden; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--light-bg); 
+            color: var(--text-main); 
+            overflow-x: hidden; 
+            line-height: 1.6;
+        }
 
-        /* --- Navigation --- */
-        nav { background: var(--white); padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .back-btn { text-decoration: none; color: var(--dhiu-blue); font-weight: bold; display: flex; align-items: center; gap: 10px; transition: 0.3s; font-size: 0.9rem; }
-        .back-btn:hover { color: var(--dhiu-gold); transform: translateX(-5px); }
+        /* --- Refined Navigation --- */
+        nav { 
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 12px 8%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 2px 20px rgba(0,0,0,0.03); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+        .back-btn { 
+            text-decoration: none; 
+            color: var(--dhiu-blue); 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            transition: 0.3s; 
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        .back-btn:hover { color: var(--dhiu-gold); }
 
-        /* --- Large Animated Header --- */
+        /* --- Premium Header --- */
         .page-header { 
-            background: linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 51, 102, 0.85)), url('bg1.jpg');
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.95), rgba(0, 20, 40, 0.9)), url('bg1.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             color: white; 
-            padding: 100px 20px; 
+            padding: 120px 20px; 
             text-align: center;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+            position: relative;
         }
-        .page-header h1 { font-size: 3.5rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
-        .page-header p { color: var(--dhiu-gold); font-size: 1.2rem; font-weight: bold; letter-spacing: 3px; }
+        .page-header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--light-bg);
+            clip-path: polygon(100% 100%, 0% 100%, 100% 0);
+        }
+        .page-header h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            margin-bottom: 15px; 
+            font-weight: 900;
+        }
+        .page-header p { 
+            color: var(--dhiu-gold); 
+            font-size: 1rem; 
+            font-weight: 600; 
+            letter-spacing: 4px; 
+            text-transform: uppercase;
+        }
 
-        /* --- Faculty Grid --- */
-        .faculty-container { padding: 80px 10%; max-width: 1400px; margin: 0 auto; }
+        /* --- Elegant Faculty Grid --- */
+        .faculty-container { padding: 60px 8%; max-width: 1400px; margin: 0 auto; }
         
         .faculty-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-            gap: 30px; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 40px; 
         }
 
         .faculty-card { 
             background: var(--white); 
-            border-radius: 4px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-bottom: 4px solid transparent;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            transition: all 0.5s ease;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .faculty-card:hover { 
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-bottom: 4px solid var(--dhiu-gold);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,51,102,0.1);
         }
 
-        /* Image Wrapper with Zoom */
+        /* Image Styling */
         .square-img-wrapper { 
             width: 100%; 
-            aspect-ratio: 1 / 1; 
+            aspect-ratio: 1 / 1.1; 
             position: relative; 
             overflow: hidden; 
         }
@@ -72,120 +125,141 @@
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            transition: transform 0.6s ease;
+            filter: grayscale(20%);
+            transition: 0.8s ease;
         }
-        .faculty-card:hover .square-img-wrapper img { transform: scale(1.1); }
+        .faculty-card:hover .square-img-wrapper img { 
+            transform: scale(1.05); 
+            filter: grayscale(0%);
+        }
 
-        /* Animated Overlay */
+        /* Modern Overlay */
         .faculty-overlay { 
             position: absolute; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(179, 142, 68, 0.9); 
-            display: flex; justify-content: center; align-items: center; 
-            gap: 15px; opacity: 0; transition: 0.4s ease;
-            transform: translateY(100%);
+            bottom: 20px; right: 20px;
+            display: flex; flex-direction: column;
+            gap: 10px; opacity: 0; transition: 0.4s ease;
+            transform: translateX(20px);
         }
-        .faculty-card:hover .faculty-overlay { opacity: 1; transform: translateY(0); }
-        .faculty-overlay a { color: white; font-size: 1.5rem; transition: 0.3s; }
-        .faculty-overlay a:hover { transform: scale(1.2); color: var(--dhiu-blue); }
+        .faculty-card:hover .faculty-overlay { opacity: 1; transform: translateX(0); }
+        
+        .faculty-overlay a { 
+            background: var(--white);
+            color: var(--dhiu-blue);
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .faculty-overlay a:hover { background: var(--dhiu-gold); color: white; }
 
-        /* Text Section */
+        /* Info Section */
         .faculty-info { 
-            padding: 20px; 
-            text-align: left; 
-            border-left: 4px solid var(--dhiu-gold); 
+            padding: 25px; 
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff, #fcfcfc);
         }
         .faculty-info h4 { 
             color: var(--dhiu-blue); 
-            font-size: 1.1rem; 
-            margin: 0; 
-            text-transform: uppercase; 
+            font-size: 1.15rem; 
+            margin-bottom: 5px;
             font-weight: 800;
+            letter-spacing: -0.5px;
         }
         .faculty-info p { 
-            color: #64748b; 
-            font-size: 0.9rem; 
-            margin-top: 6px; 
-            font-weight: 600; 
-            font-style: italic;
+            color: var(--dhiu-gold); 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        footer { background: #001a33; color: #aaa; text-align: center; padding: 40px; margin-top: 50px; }
+        footer { 
+            background: #001122; 
+            color: #94a3b8; 
+            text-align: center; 
+            padding: 60px 20px; 
+            margin-top: 50px; 
+        }
         
+        .footer-logo { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.5rem; margin-bottom: 10px; }
+
         @media (max-width: 768px) {
-            .page-header h1 { font-size: 2.2rem; }
-            .faculty-container { padding: 40px 5%; }
+            .page-header { padding: 80px 20px; }
+            .faculty-grid { gap: 20px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> RETURN TO HOME</a>
-        <img src="logo.png" alt="Logo" style="height: 50px;">
+        <a href="index.html" class="back-btn"><i class="fas fa-chevron-left"></i> Home</a>
+        <img src="logo.png" alt="Logo" style="height: 45px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">
     </nav>
 
     <div class="page-header">
-        <h1 data-aos="fade-down">Meet Our Scholars</h1>
-        <p data-aos="fade-up" data-aos-delay="200">DEDICATED FACULTY OF DARUL ARQAM</p>
+        <h1 data-aos="fade-up">Our Academic Faculty</h1>
+        <p data-aos="fade-up" data-aos-delay="200">Excellence in Islamic Education</p>
     </div>
 
     <div class="faculty-container">
         <div class="faculty-grid">
             
-            <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="100">
+            <div class="faculty-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="square-img-wrapper">
                     <img src="principal.png" alt="Muhammed Ali Faizy">
                     <div class="faculty-overlay">
                         <a href="https://wa.me/91"><i class="fab fa-whatsapp"></i></a>
-                        <a href="mailto:emergencyemergency502@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="mailto:example@gmail.com"><i class="far fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="faculty-info">
                     <h4>MUHAMMED ALI FAIZY</h4>
-                    <p>PRINCIPAL OF COLLEGE</p>
+                    <p>Principal</p>
                 </div>
             </div>
 
-            <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="200">
+            <div class="faculty-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="square-img-wrapper">
-                    <img src="ustad2.jpg" alt="Arabic Scholar">
+                    <img src="ustad2.jpg" alt="Zabeer Ashkari Faizy">
                     <div class="faculty-overlay">
                         <a href="https://wa.me/91"><i class="fab fa-whatsapp"></i></a>
-                        <a href="mailto:arabic@darularqam.edu"><i class="fas fa-envelope"></i></a>
+                        <a href="mailto:example@gmail.com"><i class="far fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="faculty-info">
                     <h4>ZABEER ASHKARI FAIZY</h4>
-                    <p>VICE PRINCIPAL</p>
+                    <p>Vice Principal</p>
                 </div>
             </div>
 
-            <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="300">
+            <div class="faculty-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="square-img-wrapper">
-                    <img src="ustad3.jpg" alt="Hadith Scholar">
+                    <img src="ustad3.jpg" alt="Muhammed Kutty Faizy">
                     <div class="faculty-overlay">
-                        <a href="https://wa.me/919876543212"><i class="fab fa-whatsapp"></i></a>
-                        <a href="mailto:hadith@darularqam.edu"><i class="fas fa-envelope"></i></a>
+                        <a href="https://wa.me/91"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:example@gmail.com"><i class="far fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="faculty-info">
                     <h4>MUHAMMED KUTTY FAIZY</h4>
-                    <p>HADITH & TAFSIR</p>
+                    <p>Hadith & Tafsir</p>
                 </div>
             </div>
 
-            <div class="faculty-card" data-aos="zoom-in-up" data-aos-delay="400">
+            <div class="faculty-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="square-img-wrapper">
-                    <img src="ustad4.jpg" alt="History Scholar">
+                    <img src="ustad4.jpg" alt="Shareef Faizy">
                     <div class="faculty-overlay">
-                        <a href="https://wa.me/919876543213"><i class="fab fa-whatsapp"></i></a>
-                        <a href="mailto:history@darularqam.edu"><i class="fas fa-envelope"></i></a>
+                        <a href="https://wa.me/91"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:example@gmail.com"><i class="far fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="faculty-info">
                     <h4>SHAREEF FAIZY</h4>
-                    <p>ISLAMIC HISTORY</p>
+                    <p>Islamic History</p>
                 </div>
             </div>
 
@@ -193,18 +267,18 @@
     </div>
 
     <footer>
-        <p style="color: var(--dhiu-gold); font-weight: bold; margin-bottom: 8px;">DARUL ARQAM SHAREE'A & ART'S COLLEGE</p>
-        <p>© 2026 Perinthalmanna, Kerala. All Rights Reserved.</p>
+        <div class="footer-logo">Darul Arqam</div>
+        <p style="color: var(--dhiu-gold); font-size: 0.9rem; font-weight: bold; margin-bottom: 15px;">SHAREE'A & ART'S COLLEGE</p>
+        <p style="font-size: 0.8rem;">© 2026 Perinthalmanna, Kerala. Designed for Excellence.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init({ 
-            duration: 1000, 
-            once: false, 
-            mirror: true 
+            duration: 800, 
+            once: true,
+            easing: 'ease-out-quad'
         });
     </script>
 </body>
 </html>
-
